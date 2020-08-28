@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TasksController@index')->name('tasks.home');
+Route::get('tareas/registro', 'TasksController@create')->name('tasks.newTask');
+Route::post('tareas', 'TasksController@store')->name('tasks.create');

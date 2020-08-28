@@ -15,6 +15,7 @@ class TasksController extends Controller
     public function index()
     {
         //
+        return view('tasks.index');
     }
 
     /**
@@ -25,6 +26,7 @@ class TasksController extends Controller
     public function create()
     {
         //
+        return view('tasks.create');
     }
 
     /**
@@ -35,7 +37,13 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return $request;
+        Tasks::create([
+            'responsable' => request('responsable'),
+            'description' => request('description')
+          ]);
+
+          return redirect()->route('tasks.home');
     }
 
     /**
