@@ -52,9 +52,11 @@ class TasksController extends Controller
      * @param  \App\Tasks  $tasks
      * @return \Illuminate\Http\Response
      */
-    public function show(Tasks $tasks)
+    public function show($id)
     {
-        //
+        return view('tasks.show', [
+            'tasks' => Tasks::findOrFail($id)
+          ]);
     }
 
     /**
@@ -63,9 +65,11 @@ class TasksController extends Controller
      * @param  \App\Tasks  $tasks
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tasks $tasks)
+    public function edit($id)
     {
-        //
+        return view('tasks.edit', [
+            'task' => Tasks::findOrFail($id)
+          ]);
     }
 
     /**
@@ -75,9 +79,11 @@ class TasksController extends Controller
      * @param  \App\Tasks  $tasks
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tasks $tasks)
+    public function update(Request $request, $id)
     {
-        //
+        $data = request()->except(['_token','_method']);
+        Tasks::where('id','=',$id)->update($data);
+        return redirect()->route('tasks.home');
     }
 
     /**
@@ -86,8 +92,10 @@ class TasksController extends Controller
      * @param  \App\Tasks  $tasks
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tasks $tasks)
+    public function destroy($id)
     {
-        //
+        //$tasks->delete();
+        Tasks::destroy($id);
+        return redirect()->route('tasks.home');
     }
 }
